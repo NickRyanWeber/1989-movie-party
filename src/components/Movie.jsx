@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import Moment from 'react-moment'
 
 class Movie extends Component {
   render() {
@@ -12,7 +13,8 @@ class Movie extends Component {
         <section className="movie-data">
           <h3 className="movie-title">{this.props.title}</h3>
           <p className="movie-release-date">
-            Released on: {this.props.releaseDate}
+            Release Date:{' '}
+            <Moment format="MMMM DD,YYYY">{this.props.releaseDate}</Moment>
           </p>
           <p className="movie-overview">{this.props.overview}</p>
         </section>

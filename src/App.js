@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import Movie from './components/Movie.jsx'
 import Header from './components/Header.jsx'
 import axios from 'axios'
+import Moment from 'react-moment'
 
 class App extends Component {
   state = {
@@ -30,20 +31,26 @@ class App extends Component {
       <main>
         <Header />
         <section className="movie-list">
-          {this.state.movies.map(movie => {
-            return (
-              <Movie
-                key={movie.id}
-                title={movie.title}
-                poster={`https://image.tmdb.org/t/p/w185_and_h278_bestv2${
-                  movie.poster_path
-                }`}
-                releaseDate={movie.release_date}
-                overview={movie.overview}
-                posterImgAlt={`${movie.title} Movie Poster`}
-              />
-            )
-          })}
+          {this.state.movies
+            .sort((a, b) => {
+              let dateA = new Date(a.release_date)
+              let dateB = new Date(b.release_date)
+              return dateA - dateB
+            })
+            .map(movie => {
+              return (
+                <Movie
+                  key={movie.id}
+                  title={movie.title}
+                  poster={`https://image.tmdb.org/t/p/w185_and_h278_bestv2${
+                    movie.poster_path
+                  }`}
+                  releaseDate={movie.release_date}
+                  overview={movie.overview}
+                  posterImgAlt={`${movie.title} Movie Poster`}
+                />
+              )
+            })}
         </section>
       </main>
     )
